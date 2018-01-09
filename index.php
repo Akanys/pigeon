@@ -3,6 +3,7 @@
 include("connection.php");
 
 ?>
+
 <form method="POST" action="http://localhost/pigeon/traitement.php" enctype="multipart/form-data">
           
     <!-- limite de fichier 100Ko -->
