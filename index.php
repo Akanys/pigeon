@@ -9,20 +9,23 @@
     </head>
 
     <body>
+        <?php
+        $BASE_URL = "https://benjaming.promo-4.codeur.online/pigeontest/";
+        ?>
         <header>
             <nav>
                 <div id="menu">
                     <div class="menu" id="menu1" onclick="afficheMenu(this)">
                         <a href="#">
-                            <img class="pigeon" src="images/logo.png" alt="npigeon">
+                            <img class="pigeon" src="images/logo.png" alt="pigeon">
                         </a>
                     </div>
                     <div id="sousmenu1" style="display:none">
                         <div class="sousmenu">
-                            <a href="notreequipe.html" target="blank">Notre Equipe</a>
+                            <a href="notreequipe.html">Notre Equipe</a>
                         </div>
                         <div class="sousmenu">
-                            <a href="mentions_legales.html" target="blank"> Mentions Legales</a>
+                            <a href="mentions_legales.html">Mentions Legales</a>
                         </div>
             
                         <div class="sousmenu">
@@ -35,25 +38,25 @@
                 </div>
             </nav>
         </header>
-            <form method="POST" action="http://localhost/pigeon/traitement.php" enctype="multipart/form-data" class="formulaire"> 
+            <form method="POST" action="<?php echo $BASE_URL ?>/traitement.php" enctype="multipart/form-data" class="formulaire" onsubmit="return verifFormulaire(this)"> 
                 <div id="formulairediv">
                     <!-- limite de fichier 100Ko -->
                     <input type="hidden" name="MAX_FILE_SIZE" value="100000000">
                     <div id="uploaddiv">
                         <span id="FakeInput">   
-                            <span>Parcourir</span>
+                            <span>Parcourir</span> <!-- Rectangle que l'ont voit -->
                             <span>...</span>
-                            <input type="file" name="upload" />
+                            <input type="file" name="upload" /> <!-- Input caché derrière le parcourir -->
                         </span>
                     </div>                    
                     <div id="expediteurdiv">
-                       <input type="text" id="expediteur" name="expediteur" placeholder="Expediteur"></input> <!-- Input pour l'expediteur -->
+                       <input type="text" id="expediteur" name="expediteur" placeholder="Expediteur" onblur="verifMail(this)" /> <!-- Input pour l'expediteur -->
                     </div>
                     <div id="destinatairediv">
-                        <input type="text" id="destinataire" name="destinataire" placeholder="Destinataire"></input> <!-- Input pour le destinataire-->
+                        <input type="text" id="destinataire" name="destinataire" placeholder="Destinataire" onblur="verifMail(this)" /><!-- Input pour le destinataire-->
                     </div>
                     <div id="messagediv">
-                       <textarea type="text" id="message" name="message" placeholder="Ecrivez votre message ici..."></textarea> <!-- Textarea pour le message -->
+                       <textarea type="text" id="message" name="message" placeholder="Ecrivez votre message ici..." onblur="verifMessage(this)"></textarea> <!-- Textarea pour le message -->
                     </div>            
                     <div id="envoyerdiv">
                         <span id="pigeon_send">
@@ -4060,15 +4063,7 @@
     
         </svg>
 
-        <!--?php
-        include("connection.php");
-        ?>-->
-
-
-
-
-
-<script type="text/javascript" src="functions.js"></script>
-</body>
-
+        <script type="text/javascript" src="validationformulaire.js"></script>
+        <script type="text/javascript" src="functions.js"></script>
+    </body>
 </html>
