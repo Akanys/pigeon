@@ -10,10 +10,10 @@ include("connection.php"); // Connection à la base de donnée
 
 if(isset($_FILES['upload']))
 {
-    $dossier = 'fichier/'; // Le dossier qui contient le fichier upload
+    $dossier = 'fichier/transit/'; // Le dossier qui contient le fichier upload
     $fichier = basename($_FILES['upload']['name']); // Le nom du fichier
     
-    // Vérification du type de fichier
+    /* Vérification du type de fichier
  
     $extensions = array('.zip');
     $extension = strrchr($_FILES['upload']['name'], '.');
@@ -21,7 +21,7 @@ if(isset($_FILES['upload']))
     if(!in_array($extensions, $extensions)) // Si l'extension ($extension) n'est pas dans le tableau des extensions ($extensions), on affiche une erreur
     {
         $erreur = 'Fichier non autorisé';
-    }
+    } */
 
     // Vérification de la taille du fichier
 
@@ -44,15 +44,55 @@ if(isset($_FILES['upload']))
     if(move_uploaded_file($_FILES['upload']['tmp_name'], $dossier . $fichier)) // Si le fichier est bien placer dans le dossier alors...
     { 
 
+    // On instancie la classe.
+    $zip = new ZipArchive();
+     
+    $aleaname = uniqid(); //création d'une suite aléatoire
+    $foldername = 'fichier/'; //Variable pour donner plus facilement le chemin du dossier pour le zip
+    $dossier = 'fichier/transit/'; //Variable pour donner le chemin du fichier à zipper
+    $name = "upload" . $aleaname . ".zip"; // Création du nom unique pour le fichier dans une variable
+    $namesave = $foldername . $name; // Variable de nom pour créer le dossier zip avec le chemin et 
+
+    if(is_dir($dossier)) // On teste si le dossier existe, car sans ça le script risque de provoquer des erreurs
+    {
+   
+    if($zip->open($namesave, ZipArchive::CREATE) == TRUE) // Ouverture de l’archive réussie
+    {
+    
+    $fichiers = scandir($dossier); // Récupération des fichiers dans le dossier transit
+    unset($fichiers[0], $fichiers[1]); // On enlève . et .. qui représentent le dossier courant et le dossier parent
+    
+    foreach($fichiers as $f) // On ajoute chaque fichier du dossier transit à l’archive en spécifiant l’argument optionnel
+    {
+    if(!$zip->addFile($dossier.$f, $f)) // Pour ne pas créer de dossier dans l’archive
+    {
+        echo 'Impossible d&#039;ajouter &quot;'.$f.'&quot;.<br/>';
+    }
+    }
+
+    $zip->close(); // On ferme l’archive
+
+    unlink($dossier . $f); //On supprime le fichier téléchargé précedement et copier dans l'archive
+
+    }
+    else
+    {
+    // Erreur lors de l’ouverture
+    // On peut ajouter du code ici pour gérer les différentes erreurs
+    echo 'Erreur, impossible de créer l&#039;archive.';
+    }
+    }
+    else
+    {
+    // Possibilité de créer le dossier avec mkdir()
+    echo 'Le dossier &quot;upload/&quot; n&#039;existe pas.';
+    }
+
     // Récupération des données du formulaire dans des variables + Création d'un nom et renommage du fichier upload
 
-        $aleaname = uniqid(); //création d'une suite aléatoire
         $expediteur = $_POST['expediteur']; // Récupération de l'expediteur dans une variable
         $destinataire = $_POST['destinataire']; // Récupération du destinataire dans une variable
         $message = $_POST['message']; // Récupération du message dans une variable
-        $name = "upload$aleaname.zip"; // Création du nom unique pour le fichier dans une variable
-
-        rename("fichier/$fichier", "fichier/$name" ); // Renommer le fichier télécharger
 
     // Remplacement des caractères spéciaux
 
