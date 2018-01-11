@@ -1,0 +1,278 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/*HTML5 display-role reset for older browsers*/ 
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+body{
+  margin: 0;
+  background-color: #F9F9F9;
+}
+
+.pigeon{
+  position: absolute fixed;
+  width: 5%;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#fond{
+    width: 50%;
+    margin-top: -50px;
+    margin-left: 374px;
+}
+
+#sousmenu1{
+  position: fixed;
+  top: 140px;
+  left: 20px;
+
+}
+
+.equipe{
+  text-align: center;
+  margin-top: 150px;
+}
+
+#map, #mapmap, #pigeons{
+  position: absolute; /* postulat de départ */
+  top: 50%; left: 150%; /* à 50%/50% du parent référent */
+}
+/*notreequipe.html*/
+.image {
+  float: left;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin-top: -60px;
+  margin-left: -60px;
+}
+
+  /*-webkit-animation-name: spin;
+  -webkit-animation-duration: 4000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+
+  -moz-animation-name: spin;
+  -moz-animation-duration: 4000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+
+  -ms-animation-name: spin;
+  -ms-animation-duration: 4000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
+
+  animation-name: spin;
+  animation-duration: 4000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  @-ms-keyframes spin { 
+      from { 
+          -ms-transform: rotate(0deg); 
+      } to { 
+          -ms-transform: rotate(360deg); 
+      }
+  }
+  @-moz-keyframes spin { 
+      from { 
+          -moz-transform: rotate(0deg); 
+      } to { 
+          -moz-transform: rotate(360deg); 
+      }
+  }
+  @-webkit-keyframes spin { 
+      from { 
+          -webkit-transform: rotate(0deg); 
+      } to { 
+          -webkit-transform: rotate(360deg); 
+      }
+  }
+  @keyframes spin { 
+      from { 
+          transform: rotate(0deg); 
+      } to { 
+          transform: rotate(360deg); 
+      }
+  }
+}*/
+
+.formulaire{
+  position: absolute;
+  margin-top: -50px;
+  margin-left: 5px;
+}
+
+#formulairediv{  
+  width: 270px;
+  height: 350px;
+  margin-top: 235px;
+  margin-left:630px;
+}
+
+#expediteur{
+  margin-top: 20px;
+}
+
+#destinataire{
+  margin-top: 10px;
+}
+
+#expediteur, #destinataire{
+    width: 232px;
+    height: 40px;   
+    margin-left: 18px;  
+    border-radius: 2px;
+    border: 1px solid #ee3451;
+    font:100%/25px sans-serif;
+    color: #219285;
+}
+
+#message{
+  width: 232px;
+  height: 80px;
+  margin-top: 10px;
+  margin-left: 18px; 
+  border-radius: 2px; 
+  border: 1px solid #ee3451;
+  font:100%/25px sans-serif;
+  color: #219285;
+}
+
+#upload{
+  margin-top: 20px;
+  margin-left: 85px;
+  border-radius: 0.5rem;
+}
+#envoyer{
+  margin-left: 69px;
+  margin-top: 20px;
+}
+
+/* Boutton du pigeon pour envoyer*/
+#img_pigeon{
+  width: 90px;
+  height: 90px  
+}
+#pigeon_send{
+  position:relative;
+  overflow:hidden;
+}
+
+#pigeon_send input {
+  position:absolute;
+  width:80px;
+  height: 80px;
+  top:-90px;
+  left:29px;
+  opacity:0;
+  cursor:pointer;
+  z-index:10;
+}
+
+#pigeon_send span:first-child{
+  margin-left: 92px;
+  margin-top: 20px;
+}
+/* Fin du boutton du pigeon pour envoyer*/
+
+/*Barre parcourir*/
+#uploaddiv{
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+#FakeInput {
+  position:relative;
+  overflow:hidden;
+}
+
+#FakeInput input {
+  position:absolute;
+  width:100%;
+  top:0;
+  left:0;
+  opacity:0;
+  cursor:pointer;
+  z-index:10;
+  margin-top: 20px;
+}
+
+#FakeInput span {
+  display:inline-block;
+  vertical-align:top;
+}
+
+#FakeInput span:first-child {
+  margin-top: 20px;
+  overflow:hidden;
+  white-space:nowrap;
+  width:150px;
+  height:25px;
+  padding-left:5px;
+  border-radius: 2px;
+  border: 1px solid #ee3451;
+  text-overflow:ellipsis;
+  font:100%/25px sans-serif;
+  color: #219285; 
+}
+
+#FakeInput span+span {  
+  width:27px;
+  height:27px;
+  margin-left:5px;
+  margin-top: 20px;
+  text-align:center;
+  background:#ddd;
+  border-radius: 2px;
+}
+/*Fin barre parcourir*/
+
