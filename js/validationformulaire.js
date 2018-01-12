@@ -8,7 +8,7 @@ function surligne(champ, erreur)
 
 function verifMail(champ)
 {
-   var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+   var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,6}$/;
    if(!regex.test(champ.value))
    {
       surligne(champ, true);
