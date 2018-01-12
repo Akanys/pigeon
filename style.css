@@ -252,7 +252,7 @@ body{
   width:100%;
   top:0;
   left:0;
-  opacity:0;  
+  opacity:0;
   cursor:pointer;
   z-index:10;
   margin-top: 20px;
@@ -287,8 +287,48 @@ body{
   border-radius: 2px;
 }
 /*Fin barre parcourir*/
-
-/* media queries logo */
+h1{
+  margin-left: 100px;
+  font-size: 20px;
+}
+#p_presentation1{
+  margin-left: 72px;
+  margin-top: 182px;
+}
+#p_presentation2{
+  margin-left: 55px;
+  margin-top: 202px;  
+}
+#p_presentation3{
+  margin-left: 65px;
+  margin-top: 222px;  
+}
+h2{
+  margin-left: 1330px;
+}
+#explications1{
+  float: right;
+  margin-top: 170px;
+}
+#explications2{
+  float: right;
+  margin-top: 230px;
+}
+#explications3{
+  float: right;
+  margin-top: 250px;
+}
+#explications4{
+  float: right;
+  margin-top: 300px;
+}
+#explications1 span, #explications2 span, #explications3 span, #explications4 span{
+  color: #ee3451;
+}
+#p_savoirplus{
+  margin-left: 0px;
+}
+/* media queries*/
 @media screen and (min-width: 320px) and (max-width:700px) { 
   .pigeon{
     width: 15%;
@@ -380,4 +420,3 @@ p{
   margin-left: 0%;  
 }
 }
-
