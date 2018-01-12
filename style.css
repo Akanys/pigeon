@@ -47,6 +47,7 @@ h1{
   margin-top: 146px;
   width: 20%;
   position: absolute;
+  font-family: 'Ranga', cursive;
 }
 p{
   margin-left: 1281px;
@@ -111,22 +112,18 @@ body{
   -webkit-animation-duration: 4000ms;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
-
   -moz-animation-name: spin;
   -moz-animation-duration: 4000ms;
   -moz-animation-iteration-count: infinite;
   -moz-animation-timing-function: linear;
-
   -ms-animation-name: spin;
   -ms-animation-duration: 4000ms;
   -ms-animation-iteration-count: infinite;
   -ms-animation-timing-function: linear;
-
   animation-name: spin;
   animation-duration: 4000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-
   @-ms-keyframes spin { 
       from { 
           -ms-transform: rotate(0deg); 
@@ -209,7 +206,7 @@ body{
   margin-top: 20px;
 }
 
-/* Boutton du pigeon pour envoyer*/
+/* Bouton du pigeon pour envoyer*/
 #img_pigeon{
   width: 90px;
   height: 90px  
@@ -234,7 +231,7 @@ body{
   margin-left: 92px;
   margin-top: 20px;
 }
-/* Fin du boutton du pigeon pour envoyer*/
+/* Fin du bouton du pigeon pour envoyer*/
 
 /*Barre parcourir*/
 #uploaddiv{

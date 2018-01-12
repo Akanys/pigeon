@@ -7,12 +7,13 @@ h1#titre{
     color:#EE3451;
     text-align: center;
     text-transform: uppercase;
-    padding-bottom: 2%;
+    padding-bottom: 4%;
 }
 
 h2{
     color:#219285;
     padding-bottom: 2%;
+    font-family: ranga;
 }
 
 .row{
@@ -35,7 +36,7 @@ span{
 par rapport aux autres colonnes, 
 je laisse à 0% pour que ça s'aligne*/
 div.col-6{
-    padding-left: 0%;
+    padding-left: 2%;
 }
 
 /*logo*/
@@ -43,4 +44,20 @@ div.col-6{
     width:7%;
     margin-left:2%;
     margin-top:2%;
+}
+
+#rang1{
+    padding-right:2%;
+}
+
+div.col-6{
+    padding-right: 5%;
+}
+
+div.row{
+    padding-left: 0%;
+}
+
+div#email.col-12.col-lg-6{
+    padding-left: 0%;
 }

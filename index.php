@@ -6,7 +6,7 @@ $verificationdate = $db->query("SELECT * FROM upload"); // On va chercher la tab
 $verificationdate = $verificationdate->fetchAll();
 
 $dateactuelle = date("j"); // On recupere la date du jour de 1 à 31
-if ($dateactuelle <= 7) { // Si la date est plus petite que 7, on lui ajoute 28 pour vérifié sur les fin de moi
+if ($dateactuelle <= 7) { // Si la date est plus petite que 7, on lui ajoute 28 pour vérifier sur les fin de mois
     $dateactuelle = $dateactuelle + 28;
 }
 $dateverification = $dateactuelle - 7; // On enlève 7 jours pour avoir une date de vérification
@@ -14,10 +14,10 @@ $dateverification = $dateactuelle - 7; // On enlève 7 jours pour avoir une date
 foreach ($verificationdate as $key => $verif): // On verifie pour chaque ligne du tableau...
         
     $name= $verif['fichier']; // Nom du dossier zip
-    $verifdate = $verif['datecreation']; // Sa date d'upload
+    $verifdate = $verif['datecreation']; // Ca date d'upload
     $dossier = "fichier/"; // Chemin pour atteindre le zip
 
-    if ($verifdate == $dateverification) // ... Si la date du dossier est égal à celle de verification
+    if ($verifdate == $dateverification) // ... Si la date du dossier est égale à celle de verification
     {
         unlink($dossier . $name); // Si oui, on supprime le dossier
         $suppression = $db->query("DELETE FROM upload WHERE fichier = '$name'"); // On supprime ensuite sa ligne dans la bdd
@@ -34,12 +34,13 @@ endforeach // Fin de la vérif
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css?family=Ranga" rel="stylesheet"> 
         <title>Pi-Geon</title>
     </head>
 
     <body>
         <?php
-        $BASE_URL = "https://benjaming.promo-4.codeur.online/pigeontest/";
+        $BASE_URL = "https://julied10.promo-4.codeur.online/pigeon/";
         ?>
         <header>
             <nav>
@@ -55,13 +56,6 @@ endforeach // Fin de la vérif
                         </div>
                         <div class="sousmenu">
                             <a href="mentions_legales.html">Mentions Legales</a>
-                        </div>
-            
-                        <div class="sousmenu">
-                            <a href="#"></a>
-                        </div>
-                        <div class="sousmenu">
-                            <a href="#"></a>
                         </div>
                     </div>
                 </div>
@@ -81,12 +75,9 @@ endforeach // Fin de la vérif
                 <p id="explications2"><span>2.</span> Complétez le formulaire</p>
                 <p id="explications3"><span>3.</span> Cliquez sur <img src="pigeon.png"> pour transférer vos fichiers</p>
                 <p id="explications4"><span>4.</span> Votre destinataire recevra le lien de téléchargement par e-mail. Il restera accessible sur notre serveur pendant 7 jours</p>
-            </div>
-            <div>
                 <h3>En savoir plus</h3>
                 <p id="p_savoirplus">Cliquez sur le logo pour afficher le menu de navigation.</p>
             </div>
-
         </div>
             <form method="POST" action="<?php echo $BASE_URL ?>/traitement.php" enctype="multipart/form-data" class="formulaire" onsubmit="return verifFormulaire(this)"> 
                 <div id="formulairediv">
