@@ -1,0 +1,46 @@
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/*titres*/
+h1#titre{
+    color:#EE3451;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 2%;
+}
+
+h2{
+    color:#219285;
+    padding-bottom: 2%;
+}
+
+.row{
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+article{
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 5%;
+}
+
+span{
+    font-weight: bold;
+}
+
+
+/*colonne info a un retrait avec bootstrap 
+par rapport aux autres colonnes, 
+je laisse à 0% pour que ça s'aligne*/
+div.col-6{
+    padding-left: 0%;
+}
+
+/*logo*/
+.pigeon{
+    width:7%;
+    margin-left:2%;
+    margin-top:2%;
+}
