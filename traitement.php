@@ -10,7 +10,7 @@ include("connection.php"); // Connection à la base de donnée
 
 if(isset($_FILES['upload']))
 {
-    $dossier = 'fichier/transit/'; // Le dossier qui contient le fichier upload
+    $dossier = 'fichier/transit/'; // Le dossier qui contiendra le fichier upload
     $fichier = basename($_FILES['upload']['name']); // Le nom du fichier
     
     /* Vérification du type de fichier
@@ -44,52 +44,49 @@ if(isset($_FILES['upload']))
     if(move_uploaded_file($_FILES['upload']['tmp_name'], $dossier . $fichier)) // Si le fichier est bien placer dans le dossier alors...
     { 
 
-    // On instancie la classe.
-    $zip = new ZipArchive();
+        // On instancie la classe.
+        $zip = new ZipArchive();
      
-    $aleaname = uniqid(); //création d'une suite aléatoire
-    $foldername = 'fichier/'; //Variable pour donner plus facilement le chemin du dossier pour le zip
-    $dossier = 'fichier/transit/'; //Variable pour donner le chemin du fichier à zipper
-    $name = "upload" . $aleaname . ".zip"; // Création du nom unique pour le fichier dans une variable
-    $namesave = $foldername . $name; // Variable de nom pour créer le dossier zip avec le chemin et 
-
-    if(is_dir($dossier)) // On teste si le dossier existe, car sans ça le script risque de provoquer des erreurs
-    {
-   
-    if($zip->open($namesave, ZipArchive::CREATE) == TRUE) // Ouverture de l’archive réussie
-    {
+        $aleaname = uniqid(); //création d'une suite aléatoire
+        $foldername = 'fichier/'; //Variable pour donner plus facilement le chemin du dossier pour le zip
+        $dossier = 'fichier/transit/'; //Variable pour donner le chemin du fichier à zipper
+        $name = "upload" . $aleaname . ".zip"; // Création du nom unique pour le fichier dans une variable
+        $namesave = $foldername . $name; // Variable de nom pour créer le dossier zip avec le chemin et 
     
-    $fichiers = scandir($dossier); // Récupération des fichiers dans le dossier transit
-    unset($fichiers[0], $fichiers[1]); // On enlève . et .. qui représentent le dossier courant et le dossier parent
+        if(is_dir($dossier)) // On teste si le dossier existe, car sans ça le script risque de provoquer des erreurs
+        {
     
-    foreach($fichiers as $f) // On ajoute chaque fichier du dossier transit à l’archive en spécifiant l’argument optionnel
-    {
-    if(!$zip->addFile($dossier.$f, $f)) // Pour ne pas créer de dossier dans l’archive
-    {
-        echo 'Impossible d&#039;ajouter &quot;'.$f.'&quot;.<br/>';
-    }
-    }
-
-    $zip->close(); // On ferme l’archive
-
-    unlink($dossier . $f); //On supprime le fichier téléchargé précedement et copier dans l'archive
-
-    }
-    else
-    {
-    // Erreur lors de l’ouverture
-    // On peut ajouter du code ici pour gérer les différentes erreurs
-    echo 'Erreur, impossible de créer l&#039;archive.';
-    }
-    }
-    else
-    {
-    // Possibilité de créer le dossier avec mkdir()
-    echo 'Le dossier &quot;upload/&quot; n&#039;existe pas.';
-    }
-
+        if($zip->open($namesave, ZipArchive::CREATE) == TRUE) // Ouverture de l’archive réussie
+        {
+    
+        $fichiers = scandir($dossier); // Récupération des fichiers dans le dossier transit
+        unset($fichiers[0], $fichiers[1]); // On enlève . et .. qui représentent le dossier courant et le dossier parent
+        
+        foreach($fichiers as $f) // On ajoute chaque fichier du dossier transit à l’archive en spécifiant l’argument optionnel
+        {
+        if(!$zip->addFile($dossier.$f, $f)) // Pour ne pas créer de dossier dans l’archive
+        {
+            echo 'Impossible d&#039;ajouter &quot;'.$f.'&quot;.<br/>';
+        }
+        }
+    
+        $zip->close(); // On ferme l’archive
+        unlink($dossier . $f); //On supprime le fichier téléchargé précedement et copier dans l'archive
+    
+        }
+        else // Erreur lors de l’ouverture
+        {
+        echo 'Erreur, impossible de créer l&#039;archive.'; // On peut ajouter du code ici pour gérer les différentes erreurs
+        }
+        }
+        else
+        {
+        echo 'Le dossier &quot;upload/&quot; n&#039;existe pas.'; // Possibilité de créer le dossier avec mkdir()
+        }
+     
     // Récupération des données du formulaire dans des variables + Création d'un nom et renommage du fichier upload
 
+        $datecreation = date("j", filemtime($namesave)); // On récupère l'heure de creation du zip
         $expediteur = $_POST['expediteur']; // Récupération de l'expediteur dans une variable
         $destinataire = $_POST['destinataire']; // Récupération du destinataire dans une variable
         $message = $_POST['message']; // Récupération du message dans une variable
@@ -107,13 +104,14 @@ if(isset($_FILES['upload']))
     
     // Envoi en base de donnée
 
-        $envoi = $db->prepare("INSERT INTO upload(expediteur, destinataire, message, fichier) VALUE (:expediteur, :destinataire, :message, :name)");
+        $envoi = $db->prepare("INSERT INTO upload(expediteur, destinataire, message, fichier, datecreation) VALUE (:expediteur, :destinataire, :message, :name, :datecreation)");
 
         // On lie la variable $ définie au-dessus au paramètre : de la requête préparée
         $envoi->bindValue('expediteur', $expediteur);
         $envoi->bindValue('destinataire', $destinataire);
         $envoi->bindValue('message', $message);
         $envoi->bindValue('name', $name);
+        $envoi->bindValue('datecreation', $datecreation);
 
         //On exécute la requête
 
@@ -151,8 +149,8 @@ if(isset($_FILES['upload']))
             $expe        = (isset($expediteur))   ? (Rec($expediteur))   : ''; // Au-dessus
             $expe        = (IsEmail($expe)) ? $expe : ''; // pareil
             $objet       = "Une personne vous a envoyé un pigeon."; // Objet du message
-            $messagemail = "Un pigeon voyageur vient de se cogner à votre fenêtre, cliquez sur le lien suivant pour aller récupérer votre message : https://benjaming.promo-4.codeur.online/pigeontest/upload.php?file=" . $name; // Message du mail contenant la variable pour le get de upload.php
-
+            $messagemail = "Un pigeon voyageur vient de se cogner a votre fenetre, cliquez sur le lien suivant pour aller recuperer votre message : https://benjaming.promo-4.codeur.online/pigeontest/upload.php?file=" . $name . "
+Votre correspondant vous a laisse un message: " . $message; // Message du mail contenant la variable pour le get de upload.php
             $form_action = '';
 
             $messagemail_envoye = "Votre pigeon s'est bien envolé  !";
@@ -179,16 +177,20 @@ if(isset($_FILES['upload']))
                     else // Sinon on affiche $messagemail_non_envoye
                     {
                     echo '<p>'.$messagemail_non_envoye.'</p>';
+                    unlink($foldername . $name); // Si l'envoi ne se fait pas on supprime le dossier
+                    $suppression = $db->query("DELETE FROM upload WHERE fichier = '$name'"); // On supprime ensuite sa ligne dans la bdd
                     };
 
                 }
                 else // Si l'une des 3 variables (ou plus) est vide alors on affiche $messagemail_formulaire_invalide
                 {
                 echo '<p>'.$messagemail_formulaire_invalide.'</p>';
+                unlink($foldername . $name); // Si l'envoi ne se fait pas on supprime le dossier
+                    $suppression = $db->query("DELETE FROM upload WHERE fichier = '$name'"); // On supprime ensuite sa ligne dans la bdd
                 $err_formulaire = true;
                 };
 
-            }; // Fin du if (!isset($_POST['envoi']))
+            }; // Fin du if (!isset($_POST['envoi'])) */
         
     }
 
@@ -196,5 +198,5 @@ if(isset($_FILES['upload']))
     {
         echo 'Echec lors de l\'upload !';
     }
-}
+} 
 ?>
